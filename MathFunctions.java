@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.lang.Math;
+import java.text.DecimalFormat;
+
 /**
  * Die Klasse MathFunctions enthält Methoden zum Ausführen verschiedene mathematische Operationen.
  * 
@@ -32,8 +34,18 @@ public class MathFunctions
      * ISBN ueberpruefen mit hilfe der Methode 'querSumme' 
      * @param isbn, der Wert der ISBN-Zahl wird durch den Parameter isbn aufgenommen. 
      */
-    static String berechneChecksummeIsbn(long isbn) {
-        return "\nDie Pruefzahl ist: "+new MathFunctions().querSumme (isbn) % 11;
+     static String berechneChecksummeIsbn(long isbn) {
+        if (String.valueOf(isbn).length() == 9){  
+            long pruefzahl = (new MathFunctions().querSumme (isbn) % 11);
+            if (pruefzahl == 10){
+                return "\nDie Pruefzahl ist: X";
+            }else{
+                return "\nDie Pruefzahl ist: "+pruefzahl;
+        }
+        }else{ 
+            throw new IllegalArgumentException( "\nDie Zahl muss aus neun Ziffern bestehen");
+        }
+   
     }
     
     /**
@@ -85,13 +97,15 @@ public class MathFunctions
     private String pqFormelBerechnen (double p,double q,boolean doppelte){
         double x1 = 0d;
         double x2 = 0d;
+        String form = "#.##";
+        DecimalFormat decimal = new DecimalFormat (form);
         if (doppelte){
             x1 = (-p/2) + Math.sqrt(((Math.pow(p/2,2))-q));
             return "Dopplete Nullstelle: "+x1;
         }else {
             x1 = (-p/2) + Math.sqrt(((Math.pow(p/2,2))-q));
             x2 = (-p/2) - Math.sqrt(((Math.pow(p/2,2))-q));
-            return "Zwei Nullstellen X1: "+x1 + " | X2: "+x2;
+            return "Zwei Nullstellen X1: "+decimal.format(x1) + " | X2: "+decimal.format(x2);
           
         }
     }
