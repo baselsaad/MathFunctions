@@ -5,11 +5,10 @@ import java.util.Scanner;
 /**
  * Die Klasse Dialogklasse dient zum testen der MathFunctions
  * 
- * @author (Basel) , (Anas) 
- * @version (13.11.2021)
+ * @author (Saad, Basel) , (Zahra, Anas) 
+ * @version (15.11.2021)
  */
-public class Dialogklasse 
-{
+public class Dialogklasse {
     private MathFunctions mathfunctions;
     private Scanner input;
     private boolean END = false;
@@ -25,16 +24,18 @@ public class Dialogklasse
     public Dialogklasse (){
         input = new Scanner (System.in);
         mathfunctions = new MathFunctions();
-   }
+    }
     
-   public static void main (String [] args){
-       new Dialogklasse().start();
-   }
-   
-   
-   private void start (){
+    // Main Methode der Dialogklasse
+    public static void main (String [] args){
+        new Dialogklasse().start();
+    }
+    
+    /**
+    *Hauptschleife des Dialogs Programms
+    */
+    private void start (){
        int funktions = 0;
-      
        while (!END){
            try {
                funktions = eingabeLesen();
@@ -43,28 +44,36 @@ public class Dialogklasse
                System.out.println (e);
            }catch (InputMismatchException e){
                System.out.print (e);
-               System.out.println (" Sie muessen hier nur Zahlen eingben eingaben");
+               System.out.println (" Sie muessen hier nur Zahlen eingaben");
                input.nextLine();
            }catch (Exception e ){
                System.out.println (e);
                e.printStackTrace() ;
                }
        }  
-   }
+    }
    
-   private int eingabeLesen (){
+    /**
+    * Hier wird eine Meneu ausgegeben und Funktion eingelesen.
+    * 
+    * @return eingelesene Funktion als ganzzahliger Wert
+    */
+    private int eingabeLesen (){
         int funktion;
         System.out.println ("\nGeben Sie die Nummer der Funktion ein\n");
         System.out.println ("-> Teilersumme berechnen: "+ TEILERSUMME
-                        +"\n-> ISBN-Pruefzahl berechnen : "+ISBN_EINGABE
-                        + "\n-> p-q-Formel Anwenden: "+QUADRATISCHE_GLEICHUNG 
-                        + "\n-> Ende: "+ENDE);
+                            +"\n-> ISBN-Pruefzahl berechnen : "+ISBN_EINGABE
+                            + "\n-> p-q-Formel Anwenden: "+QUADRATISCHE_GLEICHUNG 
+                            + "\n-> Ende: "+ENDE);
         
         funktion = input.nextInt();
         return funktion;
-   }
-   
-   private void verarbeitungsFunktion (int funktion){
+    }
+    
+     /**
+     * Hier wird die benutzerdefinierte Funktion ausgeführt.
+     */
+    private void verarbeitungsFunktion (int funktion){
        switch (funktion){
            case TEILERSUMME : 
                teilerSumme();
@@ -81,31 +90,37 @@ public class Dialogklasse
            default : 
                System.out.println ("Falsche Eingabe");
        }
-           
-   }
-   private void teilerSumme (){
-       
-       System.out.print ("Geben Sie bitte die Zahl ein: ");
-       long zahl = input.nextLong();
-       System.out.println ("\n"+String.format("Die Tielersummer von (%d): ", zahl)+mathfunctions.berechneTeilersumme(zahl));
-   }
+    }
+    
+    /**
+    * Eine Zahl wird aus dem Anwender gefragt, um dieser Zahl die Teiler summe zu finden.
+    */
+    private void teilerSumme (){
+        System.out.print ("Geben Sie bitte die Zahl ein: ");
+        long zahl = input.nextLong();
+        System.out.println ("\n"+String.format("Die Tielersummer von (%d): ", zahl)+mathfunctions.berechneTeilersumme(zahl));
+    }
    
-   private void isbnZahl (){
-       System.out.print ("Geben Sie bitte die Zahl ein: ");
-       long isbn = input.nextLong();
-       System.out.println (mathfunctions.berechneChecksummeIsbn(isbn));
-   }
+    /**
+    * Eine neunstellige Zahl wird gefragt, um es zu prüfen, ob es eine richtige ISBN Zahl ist.
+    */
+    private void isbnZahl (){
+        System.out.print ("Geben Sie eine neun-stellige Zahl ein: ");
+        long isbn = input.nextLong();
+        System.out.println (mathfunctions.berechneChecksummeIsbn(isbn));
+    }
    
-   private void QuadratischGleichung (){
-       double p = 0d;
-       double q = 0d;
-       System.out.print ("Geben Sie bitte die Variable P ein: ");
-       p = input.nextDouble();
-       System.out.print ("Geben Sie bitte die Variable Q ein: ");
-       q = input.nextDouble();
+    /**
+    * Die p und q werte werden gefragt um eine p-q Formel auszufuehren.
+    */
+    private void QuadratischGleichung (){
+        double p = 0d;
+        double q = 0d;
+        System.out.print ("Geben Sie bitte die Variable P ein: ");
+        p = input.nextDouble();
+        System.out.print ("Geben Sie bitte die Variable Q ein: ");
+        q = input.nextDouble();
        
-       System.out.println ("\n"+mathfunctions.berechneNullstellen(p, q));
-       
-   }
-   
+        System.out.println ("\n"+mathfunctions.berechneNullstellen(p, q));
+    }
 }
