@@ -22,12 +22,14 @@ public class Dialogklasse {
     private static final int ENDE = 4;
     
     public Dialogklasse (){
+        
         input = new Scanner (System.in);
         mathfunctions = new MathFunctions();
     }
     
     // Main Methode der Dialogklasse
     public static void main (String [] args){
+        
         new Dialogklasse().start();
     }
     
