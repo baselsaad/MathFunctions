@@ -9,11 +9,14 @@ import java.text.DecimalFormat;
  * @version (15.11.2021)
  */
 public class MathFunctions{
+    private MathFunctions(){
+        
+    }
     /**
      * hier wird die Teilersumme einer Zahl berechnet
      * @param zahl, Teilersumme dieses Parameters wird berechnet.
      */
-    static long berechneTeilersumme (long zahl){
+    public static long berechneTeilersumme (long zahl){
         long teilersumme = 0;
         
         if (zahl > 0){
@@ -34,7 +37,7 @@ public class MathFunctions{
      * 
      * @param isbn, der Wert der ISBN-Zahl wird durch den Parameter isbn aufgenommen. 
      */
-     static String berechneChecksummeIsbn(long isbn) {
+     public static String berechneChecksummeIsbn(long isbn) {
         long quer_summe = 0;
         int i = 9;
         String rechenweg = "z10= ";
@@ -69,13 +72,13 @@ public class MathFunctions{
      * @param p, erste Variable
      * @param q, zweite Variable
      */
-    static String berechneNullstellen(double p, double q) {
+    public static String berechneNullstellen(double p, double q) {
         double D = ((Math.pow(p/2,2))) - q;
        
         if (D > 0 ){          
-            return new MathFunctions().pqFormelBerechnen (p,q,false);
+            return  pqFormelBerechnen (p,q,false);
         }else if (D == 0 ){
-            return new MathFunctions().pqFormelBerechnen (p,q,true); 
+            return  pqFormelBerechnen (p,q,true); 
         }else {
             return "In diesem Programm werden die komplexen Nullstellen nicht berechnet";
         }
@@ -89,7 +92,7 @@ public class MathFunctions{
      * @param doppelte, dient zur ueperpruefung , ob es um eine doppelte oder einfache Nullstelle geht.
      * Die angegebenen Nullstellen werden zwei nachKommastellen gerundet.
      */
-    private String pqFormelBerechnen (double p,double q,boolean doppelte){
+    private static String pqFormelBerechnen (double p,double q,boolean doppelte){
         double x1 = 0d;
         double x2 = 0d;
         String form = "#.##";

@@ -9,9 +9,9 @@ import java.util.Scanner;
  * @version (15.11.2021)
  */
 public class Dialogklasse {
-    private MathFunctions mathfunctions;
+    
     private Scanner input;
-    private boolean END = false;
+    private boolean END;
     
     /**
      * Klassenkonstanten
@@ -24,12 +24,11 @@ public class Dialogklasse {
     public Dialogklasse (){
         
         input = new Scanner (System.in);
-        mathfunctions = new MathFunctions();
+        END = false;
     }
     
     // Main Methode der Dialogklasse
     public static void main (String [] args){
-        
         new Dialogklasse().start();
     }
     
@@ -100,7 +99,7 @@ public class Dialogklasse {
     private void teilerSumme (){
         System.out.print ("Geben Sie bitte die Zahl ein: ");
         long zahl = input.nextLong();
-        System.out.println ("\n"+String.format("Die Tielersummer von (%d): ", zahl)+mathfunctions.berechneTeilersumme(zahl));
+        System.out.println ("\n"+String.format("Die Tielersummer von (%d): ", zahl)+MathFunctions.berechneTeilersumme(zahl));
     }
    
     /**
@@ -109,7 +108,7 @@ public class Dialogklasse {
     private void isbnZahl (){
         System.out.print ("Geben Sie eine neun-stellige Zahl ein: ");
         long isbn = input.nextLong();
-        System.out.println (mathfunctions.berechneChecksummeIsbn(isbn));
+        System.out.println (MathFunctions.berechneChecksummeIsbn(isbn));
     }
    
     /**
@@ -123,6 +122,6 @@ public class Dialogklasse {
         System.out.print ("Geben Sie bitte die Variable Q ein: ");
         q = input.nextDouble();
        
-        System.out.println ("\n"+mathfunctions.berechneNullstellen(p, q));
+        System.out.println ("\n"+MathFunctions.berechneNullstellen(p, q));
     }
 }
