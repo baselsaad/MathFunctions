@@ -108,4 +108,39 @@ public class MathFunctions{
     }
     
     
+    
+    public static int berechneGgt (int zahl1,int zahl2){
+        if (zahl1 <= 0 || zahl2 <= 0){
+            throw new IllegalArgumentException ("Bitte geben Zahlen, die groesser als 0 sind");
+        }
+        int kleinezahl = getKleineZahl(zahl1,zahl2);
+        int gemeinsameteiler = 0;
+        for(int a = 1;a <= kleinezahl;a++){
+            if ((zahl1 % a) == 0 && (zahl2 % a) == 0 ){
+                gemeinsameteiler = a;
+            }
+        }
+        return gemeinsameteiler;
+    }
+    
+    private static int getKleineZahl (int zahl1,int zahl2){
+        if (zahl1 > zahl2){
+            return zahl1;
+        }else if (zahl2 > zahl1){
+            return zahl1;
+        }else{
+            return zahl1;
+        }
+    }
+    
+    
+    public static double berechneReihensumme (int anzahl , double x){
+        int anzahldersumme = 1;
+        double reihensumme = 0.0d;
+        while (anzahldersumme != anzahl){
+            reihensumme += (Math.pow (x-1,anzahldersumme)) / (anzahldersumme * Math.pow(x,anzahldersumme));
+            anzahldersumme++;
+        }
+        return reihensumme;
+    }
 }

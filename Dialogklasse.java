@@ -1,6 +1,8 @@
 import java.lang.Math;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Die Klasse Dialogklasse dient zum testen der MathFunctions
@@ -19,7 +21,9 @@ public class Dialogklasse {
     private static final int TEILERSUMME = 1;
     private static final int ISBN_EINGABE = 2;
     private static final int QUADRATISCHE_GLEICHUNG = 3;
-    private static final int ENDE = 4;
+    private static final int GGT = 4;
+    private static final int REIHENSUMME = 5;
+    private static final int ENDE = 0;
     
     public Dialogklasse (){
         
@@ -29,6 +33,7 @@ public class Dialogklasse {
     
     // Main Methode der Dialogklasse
     public static void main (String [] args){
+      
         new Dialogklasse().start();
     }
     
@@ -36,7 +41,7 @@ public class Dialogklasse {
     *Hauptschleife des Dialogs Programms
     */
     private void start (){
-       int funktions = 0;
+       int funktions = -1;
        while (!END){
            try {
                funktions = eingabeLesen();
@@ -65,6 +70,8 @@ public class Dialogklasse {
         System.out.println ("-> Teilersumme berechnen: "+ TEILERSUMME
                             +"\n-> ISBN-Pruefzahl berechnen : "+ISBN_EINGABE
                             + "\n-> p-q-Formel Anwenden: "+QUADRATISCHE_GLEICHUNG 
+                            + "\n-> Groesste gemeinsamen Teiler: "+GGT 
+                            + "\n-> ReihenSumme berechnen: "+REIHENSUMME
                             + "\n-> Ende: "+ENDE);
         
         funktion = input.nextInt();
@@ -84,6 +91,12 @@ public class Dialogklasse {
                break;
            case QUADRATISCHE_GLEICHUNG: 
                QuadratischGleichung();
+               break;
+           case GGT : 
+               Ggtberechnen();
+               break;
+           case REIHENSUMME :
+               reihenSummeBerechnen ();
                break;
            case ENDE:
                END = true;
@@ -123,5 +136,29 @@ public class Dialogklasse {
         q = input.nextDouble();
        
         System.out.println ("\n"+MathFunctions.berechneNullstellen(p, q));
+    }
+    
+    private void Ggtberechnen (){
+        int zahl1 = 0;
+        int zahl2 = 0;
+        
+        System.out.print("\nGeben Sie bitte die erste Zahl ein: ");
+        zahl1 = input.nextInt();
+        System.out.print("Geben Sie bitte die zweite Zahl ein: ");
+        zahl2 = input.nextInt();
+        
+        System.out.println("ggT von ("+zahl1+" und "+zahl2+" ) = "+MathFunctions.berechneGgt(zahl1, zahl2));
+    }
+    
+    private void reihenSummeBerechnen(){
+        int i = 0;
+        double x = 0.0d;
+        System.out.print("\nGeben Sie bitte den Wert von i ein: ");
+        i = input.nextInt();
+        System.out.print("Geben Sie bitte den Wert von x ein: ");
+        x = input.nextDouble();
+        
+        System.out.println("S"+i+"("+x+") = "+MathFunctions.berechneReihensumme(i, x));
+        
     }
 }
