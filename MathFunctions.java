@@ -1,22 +1,20 @@
 import java.util.Scanner;
 import java.lang.Math;
 import java.text.DecimalFormat;
+import java.math.BigDecimal;
 
 /**
  * Die Klasse MathFunctions enthält Methoden zum Ausführen verschiedene mathematische Operationen.
  * 
  * (Saad, Basel) , (Zahra, Anas) 
- * @version (15.11.2021)
+ * @version (22.11.2021)
  */
 public class MathFunctions{
-    private MathFunctions(){
-        
-    }
     /**
      * hier wird die Teilersumme einer Zahl berechnet
      * @param zahl, Teilersumme dieses Parameters wird berechnet.
      */
-    public static long berechneTeilersumme (long zahl){
+    static long berechneTeilersumme (long zahl){
         long teilersumme = 0;
         
         if (zahl > 0){
@@ -26,7 +24,7 @@ public class MathFunctions{
                 }
             }
         }else {
-            throw new IllegalArgumentException ("Die Methode ist nur für die natuerliche Zahlen");
+            throw new IllegalArgumentException ("Die Methode ist für die natuerliche Zahlen gewidmet");
         }
         
         return teilersumme; //bei retrun 0 , muss eine Fehlermeldung angezeigt werden (in DialogKlasse kontrollieren) 
@@ -37,7 +35,7 @@ public class MathFunctions{
      * 
      * @param isbn, der Wert der ISBN-Zahl wird durch den Parameter isbn aufgenommen. 
      */
-     public static String berechneChecksummeIsbn(long isbn) {
+    public static String berechneChecksummeIsbn(long isbn) {
         long quer_summe = 0;
         int i = 9;
         String rechenweg = "z10= ";
@@ -76,9 +74,9 @@ public class MathFunctions{
         double D = ((Math.pow(p/2,2))) - q;
        
         if (D > 0 ){          
-            return  pqFormelBerechnen (p,q,false);
+            return new MathFunctions().pqFormelBerechnen (p,q,false);
         }else if (D == 0 ){
-            return  pqFormelBerechnen (p,q,true); 
+            return new MathFunctions().pqFormelBerechnen (p,q,true); 
         }else {
             return "In diesem Programm werden die komplexen Nullstellen nicht berechnet";
         }
@@ -93,6 +91,7 @@ public class MathFunctions{
      * Die angegebenen Nullstellen werden zwei nachKommastellen gerundet.
      */
     private static String pqFormelBerechnen (double p,double q,boolean doppelte){
+        
         double x1 = 0d;
         double x2 = 0d;
         String form = "#.##";
@@ -107,8 +106,36 @@ public class MathFunctions{
         }
     }
     
+    /**
+     *prueft zu einer natuerlichen Zahl, ob es natuerliche Zahlen a, b, c gibt, so dass gilt zahl = a^4 + b^3 + c^2 .
+     *@param i, grenze weil es wird lange dauern wenn die zahl gruesser als 3 ist.
+     */
+    public static boolean istSummeVonPotenzen(long zahl)
+    {
+        long i = 3 ; //i = 3 weil es wird lange dauern wenn die zahl gruesser als 3 ist.
+        
+        if (zahl > 0 ){
+        for (int a = 1 ; a <= i; a++){
+             for (int b =1 ; b <= i ; b++){ 
+                 for (int c = 1 ; c <= i ; c++){   
+                    if (zahl == Math.pow(a,4) + Math.pow(b,3) + Math.pow(c,2)){
+                        //System.out.printf("a^4 = %d -- > b^3 = %d --> c^2 = %d \n" , a,b,c );
+                        return true;
+                    }
+                }
+            }
+        }
+        }else{
+            throw new IllegalArgumentException ("Die zahl muss groesser als 0 sein!");
+        }
+        return false ; 
+    }
     
-    
+    /**
+     *  Den groessten gemeinsamen Teiler zweier natuerlicher Zahlen
+     * @param zahl1, erste Eingabe als int
+     * @param zahl2, zweite Eingabe als int
+     */
     public static int berechneGgt (int zahl1,int zahl2){
         if (zahl1 <= 0 || zahl2 <= 0){
             throw new IllegalArgumentException ("Bitte geben Zahlen, die groesser als 0 sind");
@@ -123,6 +150,11 @@ public class MathFunctions{
         return gemeinsameteiler;
     }
     
+    /**
+     * Kleine Zahl aus 'zahl1' und 'zahl2' herausfinden
+     * @param zahl1, erste Eingabe als int
+     * @param zahl2, zweite Eingabe als int
+     */
     private static int getKleineZahl (int zahl1,int zahl2){
         if (zahl1 > zahl2){
             return zahl1;
@@ -133,14 +165,44 @@ public class MathFunctions{
         }
     }
     
+    public static long berechneFakultaet(int zahl) {
+        long fakultaet = 1; 
+        long zahl_0 = 0 ;
+        
+        if ( zahl >= 0 ){
+        for (int i = 1; i <= zahl; ++i) {
+            fakultaet *= i;
+        }
+        }else{
+        throw new IllegalArgumentException ("Die Methode ist für die natuerliche Zahlen gewidmet");
+        }
+        
+        if (fakultaet <= Math.pow(2,63)-1 && fakultaet >= 0 && fakultaet > 20 ){
+            zahl_0 = fakultaet ;
+        }else {
+            System.out.println("\nDieser Zahl kann nicht berchnet werden weil es zu groess ist");
+        }
+        
+        return zahl_0 ;
+    }
     
+    /**
+     * Die Methode berechnet zu einer uebergebenen ganzen
+     * Zahl 'anzahl' und einem Wert 'x' die folgende mathematische Funktion
+     * und gibt das Ergebnis zurueck.
+     */
     public static double berechneReihensumme (int anzahl , double x){
         int anzahldersumme = 1;
         double reihensumme = 0.0d;
-        while (anzahldersumme != anzahl){
-            reihensumme += (Math.pow (x-1,anzahldersumme)) / (anzahldersumme * Math.pow(x,anzahldersumme));
+        if (anzahl <= 0 || x <= 0 ){
+            throw new IllegalArgumentException ("Sie koennen nur natuerliche Zahlen eingeben!");
+        }
+            while (anzahldersumme <= anzahl){     
+            reihensumme += Math.round((Math.pow (x-1,anzahldersumme)) / (anzahldersumme * Math.pow(x,anzahldersumme))*100000.0)/100000.0; 
             anzahldersumme++;
         }
+       
         return reihensumme;
     }
+    
 }

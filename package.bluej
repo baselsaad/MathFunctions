@@ -2,10 +2,10 @@
 dependency1.from=Dialogklasse
 dependency1.to=MathFunctions
 dependency1.type=UsesDependency
-editor.fx.0.height=694
-editor.fx.0.width=1294
-editor.fx.0.x=-7
-editor.fx.0.y=-7
+editor.fx.0.height=0
+editor.fx.0.width=0
+editor.fx.0.x=0
+editor.fx.0.y=0
 objectbench.height=217
 objectbench.width=931
 package.divider.horizontal=0.6

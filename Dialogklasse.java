@@ -1,19 +1,17 @@
 import java.lang.Math;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Die Klasse Dialogklasse dient zum testen der MathFunctions
  * 
  * @author (Saad, Basel) , (Zahra, Anas) 
- * @version (15.11.2021)
+ * @version (22.11.2021)
  */
 public class Dialogklasse {
     
     private Scanner input;
-    private boolean END;
+    private boolean END = false;
     
     /**
      * Klassenkonstanten
@@ -21,19 +19,19 @@ public class Dialogklasse {
     private static final int TEILERSUMME = 1;
     private static final int ISBN_EINGABE = 2;
     private static final int QUADRATISCHE_GLEICHUNG = 3;
-    private static final int GGT = 4;
-    private static final int REIHENSUMME = 5;
+    private static final int SUMME_VON_POTENZEN = 4;
+    private static final int Ggt_BERECHNEN = 5;
+    private static final int FAKULTAET = 6;
+    private static final int REIHENSUNMME = 7;
     private static final int ENDE = 0;
     
     public Dialogklasse (){
-        
         input = new Scanner (System.in);
         END = false;
     }
     
     // Main Methode der Dialogklasse
     public static void main (String [] args){
-      
         new Dialogklasse().start();
     }
     
@@ -67,12 +65,14 @@ public class Dialogklasse {
     private int eingabeLesen (){
         int funktion;
         System.out.println ("\nGeben Sie die Nummer der Funktion ein\n");
-        System.out.println ("-> Teilersumme berechnen: "+ TEILERSUMME
-                            +"\n-> ISBN-Pruefzahl berechnen : "+ISBN_EINGABE
-                            + "\n-> p-q-Formel Anwenden: "+QUADRATISCHE_GLEICHUNG 
-                            + "\n-> Groesste gemeinsamen Teiler: "+GGT 
-                            + "\n-> ReihenSumme berechnen: "+REIHENSUMME
-                            + "\n-> Ende: "+ENDE);
+        System.out.println ("---> Teilersumme berechnen: "+ TEILERSUMME
+                            + "\n---> ISBN-Pruefzahl berechnen : "+ISBN_EINGABE
+                            + "\n---> p-q-Formel Anwenden: "+QUADRATISCHE_GLEICHUNG 
+                            + "\n---> Summe von Potenzen berechnen: " +SUMME_VON_POTENZEN
+                            + "\n---> grueossten gemeinsamen Teiler berechnen: " +Ggt_BERECHNEN
+                            + "\n---> Fakultaet berechnen: " +FAKULTAET
+                            + "\n---> Reihensumme berechnen: " +REIHENSUNMME
+                            + "\n---> Ende: "+ENDE);
         
         funktion = input.nextInt();
         return funktion;
@@ -83,25 +83,31 @@ public class Dialogklasse {
      */
     private void verarbeitungsFunktion (int funktion){
        switch (funktion){
-           case TEILERSUMME : 
+            case TEILERSUMME : 
                teilerSumme();
                break;
-           case ISBN_EINGABE :
+            case ISBN_EINGABE :
                isbnZahl();
                break;
-           case QUADRATISCHE_GLEICHUNG: 
+            case QUADRATISCHE_GLEICHUNG: 
                QuadratischGleichung();
-               break;
-           case GGT : 
-               Ggtberechnen();
-               break;
-           case REIHENSUMME :
-               reihenSummeBerechnen ();
-               break;
-           case ENDE:
+                break;
+            case SUMME_VON_POTENZEN:
+                SummeVonPotenzen();
+                break;
+            case Ggt_BERECHNEN:
+                Ggtberechnen();
+                break;
+            case FAKULTAET:
+                berechneFakultaet();
+                break;
+            case REIHENSUNMME:
+                reihenSummeBerechnen();
+                break;
+            case ENDE:
                END = true;
                break;
-           default : 
+            default : 
                System.out.println ("Falsche Eingabe");
        }
     }
@@ -123,7 +129,7 @@ public class Dialogklasse {
         long isbn = input.nextLong();
         System.out.println (MathFunctions.berechneChecksummeIsbn(isbn));
     }
-   
+    
     /**
     * Die p und q werte werden gefragt um eine p-q Formel auszufuehren.
     */
@@ -138,27 +144,63 @@ public class Dialogklasse {
         System.out.println ("\n"+MathFunctions.berechneNullstellen(p, q));
     }
     
-    private void Ggtberechnen (){
+    /**
+    * Eine Natuerliche Zahl wird gefragt, um es zu prüfen, ob es natuerliche Zahlen a, b, c gibt, so dass gilt zahl = a^4 + b^3 + c^2 .
+    */
+    private void SummeVonPotenzen(){
+       long zahl = 0;
+       System.out.println("Geben Sie die Zahlen ein: ");
+       zahl = input.nextLong();
+       if (MathFunctions.istSummeVonPotenzen(zahl)){
+           System.out.println("\nDie Zahl: "+zahl+" erfuellt die Bedingung");
+       }else {
+           System.out.println("\nDie Zahl: "+zahl+" erfuellt nicht die Bedingung");
+       }
+       
+    }
+    
+    /**
+    * Zwei Natuerliche Zahlen werden gefragt, um den groessten gemeinsamen Teiler diese zweie Zahlen zu berechnen.
+    */    
+    private void Ggtberechnen(){
         int zahl1 = 0;
         int zahl2 = 0;
         
         System.out.print("\nGeben Sie bitte die erste Zahl ein: ");
         zahl1 = input.nextInt();
-        System.out.print("Geben Sie bitte die zweite Zahl ein: ");
+        System.out.print("\nGeben Sie bitte die zweite Zahl ein: ");
         zahl2 = input.nextInt();
         
-        System.out.println("ggT von ("+zahl1+" und "+zahl2+" ) = "+MathFunctions.berechneGgt(zahl1, zahl2));
+        System.out.println("grueossten gemeinsamen Teiler von ("+zahl1+" und "+zahl2+") = "+MathFunctions.berechneGgt(zahl1, zahl2));
     }
     
+    /**
+    * Eine Natuerliche Zahl wird gefragt, um die Fakultaet zu berechnen.
+    */
+    private void berechneFakultaet(){
+       int zahl ;
+       System.out.print ("Geben Sie bitte ein zahl : ");
+       zahl = input.nextInt();
+       if (MathFunctions.berechneFakultaet(zahl) > 0){
+           System.out.println ("\n"+String.format("Die Fakultaet von " + zahl+  " ist :")+MathFunctions.berechneFakultaet(zahl));
+       }else{
+           System.out.println("");
+        }
+    }
+    
+    /**
+    * Die Methode berechnet zu einer uebergebenen ganzen
+    * Zahl 'anzahl' und einem Wert 'x' die folgende mathematische Funktion
+    */
     private void reihenSummeBerechnen(){
         int i = 0;
         double x = 0.0d;
-        System.out.print("\nGeben Sie bitte den Wert von i ein: ");
+        System.out.print("\nGeben Sie den Wert von i ein: ");
         i = input.nextInt();
-        System.out.print("Geben Sie bitte den Wert von x ein: ");
+        System.out.print("Geben Sie den Wert von x ein: ");
         x = input.nextDouble();
         
         System.out.println("S"+i+"("+x+") = "+MathFunctions.berechneReihensumme(i, x));
         
-    }
+    }    
 }
