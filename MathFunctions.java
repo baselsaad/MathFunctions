@@ -10,6 +10,8 @@ import java.math.BigDecimal;
  * @version (22.11.2021)
  */
 public class MathFunctions{
+    private MathFunctions(){}
+    
     /**
      * hier wird die Teilersumme einer Zahl berechnet
      * @param zahl, Teilersumme dieses Parameters wird berechnet.
